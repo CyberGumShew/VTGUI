@@ -4,6 +4,8 @@ About:
 
 This is a simple Powershell Utility to query hashes and url against the VirusTotal API. This tool helps in Threat Intelligence and Threat Hunting. When searching the internet for something similar, I was not able to find anything, so I decided to build it. 
 
+![image](https://user-images.githubusercontent.com/84749733/119416579-90d85380-bcb9-11eb-8db2-aa9a088f733d.png)
+
 Install:
 
 As this is a powershell script, there is no real install. Just add your VT API key in "-value" parameter in the first line. This can be a free API key from a non-enterprise account. Then run the powershell script either from command line or right-click and 'Run with Powershell'.
