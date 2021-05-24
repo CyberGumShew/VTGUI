@@ -10,14 +10,8 @@ As this is a powershell script, there is no real install. Just add your VT API k
 
 Use: 
 
-1a. Paste a Hash, URL, or new line seperated list of Hash or URLs into the IOCs text box.
-
-OR
-
-1b. Alternatively, you can put a path to a .csv file in the text box and it will use the IOCs from the csv. The csv MUST have a column heading of "ioc" where you want to pull the list of IOCs from.
-
+1. Input IOCs. Paste a Hash, URL, or new line seperated list of Hash or URLs into the IOCs text box. Alternatively, you can put a path to a .csv file in the text box and it will use the IOCs from the csv. The csv MUST have a column heading of "ioc" where you want to pull the list of IOCs from.
 2. Select whether you want to scan Hashes or URLs.
-
 3. Click the "Execute" button to query VT. 
 
 Indicators that are found in VT will populate the top 'Results' Grid, color coded. Green is for no malicious or suspicious results, orange for suspicious not malicious results. Red for malicious results. Indicators not found in VT will populate the bottom 'No Scan' Grid. 
