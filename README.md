@@ -40,3 +40,5 @@ Example Use Cases:
 2. Convert MD5 -> SHA256 or SHA256 -> MD5 for files in VT.
 3. Find Last Final URL from a list of URLs (like URL Shorteners with redirects!)
 4. *With a little modification* Scan hashes against VT to test if your specific AV Engine detects the hash
+
+Very interested to hear if the tool helps you out, you have any feature requests, or you've modified it in a cool way!
