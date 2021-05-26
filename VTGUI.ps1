@@ -102,7 +102,7 @@ $btnCopymalMD5.Add_Click({
     if ($radAll.IsChecked) { if ($radHash.IsChecked) {$results.MD5 | Set-Clipboard} elseif ($radURL.IsChecked) {$results.Url | Set-Clipboard}}
     if ($radMal.IsChecked) { if ($radHash.IsChecked) {$results | where {$_.Malicious -gt 0 -OR $_.Suspicious -gt 0} | Select -expandproperty MD5 | Set-Clipboard} elseif ($radURL.IsChecked) {$results | where {$_.Malicious -gt 0 -OR $_.Suspicious -gt 0} | Select -expandproperty Url | Set-Clipboard }}
     if ($radCell.IsChecked) {if ($radHash.IsChecked) {$dgdAlert.SelectedItem.MD5 | Set-Clipboard} elseif ($radURL.IsChecked) {$dgdURL.SelectedItem.Url | Set-Clipboard}}
-    if ($radNoScan.IsChecked) {$noscanlist.Hash | Set-Clipboard }
+    if ($radNoScan.IsChecked) {$noscanlist.ioc | Set-Clipboard }
 })
 
 $btnExport.Add_Click({
@@ -205,7 +205,13 @@ $btnExecute.Add_Click({
                 if ($details.Malicious -ge 1) {$Alert=2} elseif ($details.Suspicious -ge 1) {$Alert=2} else {$Alert = 0} ## Assign an Alert Level
                 $dgdURL.AddChild([pscustomobject]@{URL=$details.Url;LastFinalUrl=$details.LastFinalUrl;AnalysisDate=$details.AnalysisDate;Malicious=$details.Malicious;Suspicious=$details.Suspicious;Reputation=$details.Reputation;MalV=$details.MalVotes;Alert=$Alert});
             } 
-        } catch {$noscanlist += $url; $noscan=$true;}
+        } catch {            
+            $noscanioc = @{     
+            ioc = $url
+            }
+        $noscanlist += New-Object PSObject -property $noscanioc
+        $dgdNotFound.AddChild([pscustomobject]@{NoScan=$url})
+        }
         }
     }
     elseif ($radHash.IsChecked) {
@@ -235,11 +241,11 @@ $btnExecute.Add_Click({
                         $dgdAlert.AddChild([pscustomobject]@{MD5=$details.MD5;SHA256=$details.SHA256;AnalysisDate=$details.AnalysisDate;FileName=$details.Name;Signed=$details.Signed;Malicious=$details.Malicious;Suspicious=$details.Suspicious;Reputation=$details.Reputation;MalV=$details.MalVotes;Alert=$Alert});
                     }
                 } catch {
-                    $noscanhash = @{     
-                            Hash = $hash
+                    $noscanioc = @{     
+                            ioc = $hash
                     }
-                    $noscanlist += New-Object PSObject -property $noscanhash
-                    $dgdNotFound.AddChild([pscustomobject]@{NoScan=$hash}); 
+                    $noscanlist += New-Object PSObject -property $noscanioc
+                    $dgdNotFound.AddChild([pscustomobject]@{NoScan=$hash})
                 }
             }
         }
